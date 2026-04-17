@@ -1,15 +1,13 @@
+## 📊 Output Results
 
-# Titanic Survival Prediction Project
+### EDA Plot
+![EDA](output/eda_plots.png)
 
-## Steps
-1. Install dependencies:
-   pip install -r requirements.txt
+### Correlation Heatmap
+![Heatmap](output/correlation_heatmap.png)
 
-2. Add dataset:
-   data/train.csv
+### Confusion Matrix
+![Confusion Matrix](output/confusion_matrix.png)
 
-3. Run:
-   python main.py
-
-## Output
-Plots saved in output folder
+### Feature Importance
+![Feature Importance](output/feature_importance.png)
