@@ -31,24 +31,26 @@ if not os.path.exists(file_path):
 df = pd.read_csv(file_path)
 
 # Preprocessing
-df['Age'].fillna(df['Age'].median(), inplace=True)
-df['Fare'].fillna(df['Fare'].median(), inplace=True)
-df['Embarked'].fillna(df['Embarked'].mode()[0], inplace=True)
+# Fix missing values (NO inplace)
+df['Age'] = df['Age'].fillna(df['Age'].median())
+df['Fare'] = df['Fare'].fillna(df['Fare'].median())
+df['Embarked'] = df['Embarked'].fillna(df['Embarked'].mode()[0])
 
+# Convert categorical
 df['Sex'] = df['Sex'].map({'male': 0, 'female': 1})
 df['Embarked'] = df['Embarked'].map({'S': 0, 'C': 1, 'Q': 2})
 
+# Feature Engineering
 df['FamilySize'] = df['SibSp'] + df['Parch'] + 1
-
-# EDA plots
-plt.figure(figsize=(10,5))
-sns.countplot(x='Survived', data=df)
-plt.savefig("output/eda_plots.png")
-plt.close()
 
 # Heatmap
 plt.figure(figsize=(8,6))
-sns.heatmap(df.corr(), annot=True)
+numeric_df = df.select_dtypes(include=['number'])
+
+plt.figure(figsize=(8,6))
+sns.heatmap(numeric_df.corr(), annot=True, cmap='coolwarm')
+plt.savefig("output/correlation_heatmap.png")
+plt.close()
 plt.savefig("output/correlation_heatmap.png")
 plt.close()
 
