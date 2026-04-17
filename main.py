@@ -11,8 +11,24 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 # Create output folder
 os.makedirs("output", exist_ok=True)
 
+import os
+import urllib.request
+
+# Create data folder
+os.makedirs("data", exist_ok=True)
+
+# Dataset URL (Titanic dataset)
+url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+file_path = "data/train.csv"
+
+# Download if not exists
+if not os.path.exists(file_path):
+    print("Downloading dataset...")
+    urllib.request.urlretrieve(url, file_path)
+    print("Download complete!")
+
 # Load dataset
-df = pd.read_csv("data/train.csv")
+df = pd.read_csv(file_path)
 
 # Preprocessing
 df['Age'].fillna(df['Age'].median(), inplace=True)
